@@ -14,4 +14,16 @@ class TodoModel extends SQL
         $stmt = $this->getPdo()->prepare("UPDATE todos SET termine = 1 WHERE id = ?");
         $stmt->execute([$id]);
     }
+
+    function getAll(): ?array
+    {
+        $stmt = $this->getPdo()->prepare("SELECT * From todos");
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_OBJ);
+    }
+
+    function ajouterTodo($texte) {
+        $stmp = $this->getPdo()->prepare("INSERT INTO todos (texte, termine) VALUES ( ?, 0)");
+        $stmp->execute([$texte]);
+    }
 }
