@@ -37,7 +37,14 @@ class TodoWeb extends WebController
         if($id != ""){
             $this->todoModel->marquerCommeTermine($id);
         }
+        $this->redirect("./liste");
+    }
 
+    // Supprimer une todo
+    function supprimer($id) {
+        if ($id != "") {
+            $this->todoModel->deleteTodo($id);
+        }
         $this->redirect("./liste");
     }
 }
