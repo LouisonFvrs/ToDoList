@@ -18,6 +18,7 @@ class TodoWeb extends WebController
     // Lister les todos
     function liste()
     {
+
         if(!SessionHelpers::isLogin()){
             $this->redirect("/");
         }

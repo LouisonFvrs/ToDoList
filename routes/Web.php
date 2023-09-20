@@ -44,6 +44,9 @@ class Web
             return Template::render('views/global/about.php');
         });
 
+        // Gestion de l'authentification
+        Route::Add('/login', [$auth, 'getConnection']);
+
 
 
 
