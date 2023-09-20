@@ -11,7 +11,7 @@
 <body class="<?= isset($_GET['id']) ? 'brick' : '' ?>">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Mini MVC Sample</a>
+        <a class="navbar-brand" href="/">Todo List</a>
         <ul class="nav nav-pills">
             <?php
             if (\utils\SessionHelpers::isLogin()) {
