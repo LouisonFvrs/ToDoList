@@ -1,3 +1,12 @@
+CREATE TABLE Compte(
+                       id_Compte  int(11) NOT NULL,
+                       MotDePasse VARCHAR(50) NOT NULL,
+                       Nom VARCHAR(50) NOT NULL,
+                       PRIMARY KEY(id_Compte)
+)
+    ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 --
 -- Structure de la table `todos`
 --
@@ -29,3 +38,6 @@ ALTER TABLE `todos`
 ALTER TABLE `todos`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
+
+ALTER TABLE todos
+    ADD FOREIGN KEY (id) REFERENCES Compte(id_Compte);

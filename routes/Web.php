@@ -2,9 +2,11 @@
 
 namespace routes;
 
+use controllers\AuthControler;
 use controllers\SampleWebController;
 use controllers\TodoWeb;
 use routes\base\Route;
+use utils\SessionHelpers;
 use utils\Template;
 
 class Web
@@ -13,9 +15,15 @@ class Web
     {
         $main = new SampleWebController();
         $todo = new TodoWeb();
+        $auth = new AuthControler();
 
-        // Appel la méthode « home » dans le contrôleur $main.
-        Route::Add('/', [$main, 'home']);
+        // Vérification de la session
+        if(SessionHelpers::isLogin()){
+            Route::Add('/', [$main, 'home']);
+
+        } else {
+            Route::Add('/', [$auth, 'login']);
+        }
 
         // Route des fonctionnalités des todos
         Route::Add('/todo/liste', [$todo, 'liste']);
@@ -23,16 +31,22 @@ class Web
         Route::Add('/todo/terminer', [$todo, 'terminer']);
         Route::Add('/todo/supprimer', [$todo, 'supprimer']);
 
-        // Appel la fonction inline dans le routeur.
-        // Utile pour du code très simple, où un tes, l'utilisation d'un contrôleur est préférable.
+        // Page home
+        Route::Add('/home', [$main, 'home']);
+
+        // Page à propos
         Route::Add('/about', function () {
+
+            if(!SessionHelpers::isLogin()){
+                $this->redirect("/");
+            }
+
             return Template::render('views/global/about.php');
         });
 
-        //        Exemple de limitation d'accès à une page en fonction de la SESSION.
-        //        if (SessionHelpers::isLogin()) {
-        //            Route::Add('/logout', [$main, 'home']);
-        //        }
+
+
+
     }
 }
 

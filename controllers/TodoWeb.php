@@ -3,6 +3,7 @@ namespace controllers;
 
 use controllers\base\WebController;
 use models\TodoModel;
+use utils\SessionHelpers;
 use utils\Template;
 
 class TodoWeb extends WebController
@@ -17,13 +18,21 @@ class TodoWeb extends WebController
     // Lister les todos
     function liste()
     {
+        if(!SessionHelpers::isLogin()){
+            $this->redirect("/");
+        }
         $todos = $this->todoModel->getAll(); // Récupération des TODOS présents en base.
         return Template::render("views/todos/liste.php", array('todos' => $todos)); // Affichage de votre vue.
     }
 
+
     // Ajouter une todo
     function ajouter($texte)
     {
+        if(!SessionHelpers::isLogin()){
+            $this->redirect("/");
+        }
+
         if(strlen($texte) != 0){
             $this->todoModel->ajouterTodo($texte);
             $this->redirect("./liste");
@@ -34,6 +43,10 @@ class TodoWeb extends WebController
 
     // Marquer comme terminer une todo
     function terminer($id = ''){
+
+        if(!SessionHelpers::isLogin()){
+            $this->redirect("/");
+        }
         if($id != ""){
             $this->todoModel->marquerCommeTermine($id);
         }
@@ -42,6 +55,11 @@ class TodoWeb extends WebController
 
     // Supprimer une todo
     function supprimer($id) {
+
+        if(!SessionHelpers::isLogin()){
+            $this->redirect("/");
+        }
+
         if ($id != "") {
             $this->todoModel->deleteTodo($id);
         }
