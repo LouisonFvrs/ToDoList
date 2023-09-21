@@ -17,7 +17,7 @@ class TodoModel extends SQL
 
     function getAll(): ?array
     {
-        $stmt = $this->getPdo()->prepare("SELECT * From todos");
+        $stmt = $this->getPdo()->prepare("SELECT * From todos inner join compte on compte.id_Compte = todos.id");
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }

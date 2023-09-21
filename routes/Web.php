@@ -21,22 +21,21 @@ class Web
         if(SessionHelpers::isLogin()){
             Route::Add('/', [$main, 'home']);
 
+            // Route des fonctionnalités des todos
+            Route::Add('/todo/liste', [$todo, 'liste']);
+            Route::Add('/todo/ajouter', [$todo, 'ajouter']);
+            Route::Add('/todo/terminer', [$todo, 'terminer']);
+            Route::Add('/todo/supprimer', [$todo, 'supprimer']);
+
+            // Page home
+            Route::Add('/home', [$main, 'home']);
+
         } else {
             Route::Add('/', [$auth, 'login']);
         }
 
-        // Route des fonctionnalités des todos
-        Route::Add('/todo/liste', [$todo, 'liste']);
-        Route::Add('/todo/ajouter', [$todo, 'ajouter']);
-        Route::Add('/todo/terminer', [$todo, 'terminer']);
-        Route::Add('/todo/supprimer', [$todo, 'supprimer']);
-
-        // Page home
-        Route::Add('/home', [$main, 'home']);
-
         // Page à propos
         Route::Add('/about', function () {
-
             if(!SessionHelpers::isLogin()){
                 $this->redirect("/");
             }
@@ -45,10 +44,7 @@ class Web
         });
 
         // Gestion de l'authentification
-        Route::Add('/login', [$auth, 'getConnection']);
-
-
-
+        Route::Add('/login', [$auth, 'getConnected']);
 
     }
 }
