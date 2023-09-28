@@ -17,13 +17,15 @@ class TodoModel extends SQL
 
     function getAll(): ?array
     {
-        $stmt = $this->getPdo()->prepare("SELECT * From todos inner join compte on compte.id_Compte = todos.id");
+        $id = $_SESSION['id'];
+        $stmt = $this->getPdo()->prepare("SELECT * From todos inner join compte on compte.id_Compte = todos.id_Compte WHERE compte.id_Compte = $id");
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
 
-    function ajouterTodo($texte) {
-        $stmp = $this->getPdo()->prepare("INSERT INTO todos (texte, termine) VALUES ( ?, 0)");
+    function ajouterTodo($texte, $email) {
+        $id = $_SESSION['id'];
+        $stmp = $this->getPdo()->prepare("INSERT INTO todos (texte, termine, id_Compte) VALUES ( ?, 0, $id)");
         $stmp->execute([$texte]);
     }
 

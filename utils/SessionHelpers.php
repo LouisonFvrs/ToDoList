@@ -16,9 +16,10 @@ class SessionHelpers
         session_start();
     }
 
-    static function login(mixed $equipe): void
+    static function login(mixed $equipe, $userId): void
     {
         $_SESSION['LOGIN'] = $equipe;
+        $_SESSION['id'] = $userId;
     }
 
     static function logout(): void

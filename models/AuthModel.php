@@ -11,12 +11,20 @@ class AuthModel extends SQL
     }
 
     function login($email, $password){
-        $stmt = $this->getPdo()->prepare("SELECT * FROM compte WHERE ? = Nom AND password(?) = MotDePasse");
-        $stmt->execute([$email, $password]);
 
-        if($stmt->rowCount() > 0) {
-            return true;
+        $stmt = $this->getPdo()->prepare("SELECT MotDePasse, id_Compte FROM compte WHERE ? = Email");
+        $stmt->execute([$email]);
+        $result = $stmt->fetch(\PDO::FETCH_OBJ);
+
+        if (password_verify($password, $result->MotDePasse)) {
+            return $result->id_Compte;
         }
-        return false;
+        return "";
+    }
+
+    function creation($nom, $prenom, $email, $motDePasse) {
+        $stmt = $this->getPdo()->prepare("INSERT INTO Compte (MotDePasse, Email, NomCompte, PrenomCompte) VALUES (?,?,?,?)");
+        $hash = password_hash($motDePasse, PASSWORD_BCRYPT);
+        $stmt->execute([$hash, $email, $nom, $prenom]);
     }
 }

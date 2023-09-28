@@ -21,7 +21,7 @@
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    Vous n'avez pas de compte ? <a href="creer-compte.php">Créez un compte</a>
+                    Vous n'avez pas de compte ? <a href="./createAccount">Créez un compte</a>
                 </div>
             </div>
         </div>

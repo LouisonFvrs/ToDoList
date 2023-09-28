@@ -27,12 +27,12 @@ class Web
             Route::Add('/todo/terminer', [$todo, 'terminer']);
             Route::Add('/todo/supprimer', [$todo, 'supprimer']);
 
-            // Page home
-            Route::Add('/home', [$main, 'home']);
-
         } else {
             Route::Add('/', [$auth, 'login']);
         }
+
+        // Page home
+        Route::Add('/home', [$main, 'home']);
 
         // Page à propos
         Route::Add('/about', function () {
@@ -45,6 +45,8 @@ class Web
 
         // Gestion de l'authentification
         Route::Add('/login', [$auth, 'getConnected']);
+        Route::Add('/createAccount', [$auth, 'newAccount']);
+        Route::Add('/traitement', [$auth, 'createAccount']);
 
     }
 }

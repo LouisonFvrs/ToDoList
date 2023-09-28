@@ -35,7 +35,7 @@ class TodoWeb extends WebController
         }
 
         if(strlen($texte) != 0){
-            $this->todoModel->ajouterTodo($texte);
+            $this->todoModel->ajouterTodo($texte, $_SESSION['LOGIN']);
             $this->redirect("./liste");
         } else {
             $this->redirect("./liste");
